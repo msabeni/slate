@@ -19,7 +19,7 @@ code_clipboard: true
 
 Buclist is a simple API, that can be used to store your bucket lists or the things you want to do before you die. It allows consumers to perform CRUD operations on bucketlists. You can use the same API to even manage a ToDo application A bucketlist has many items and belongs to a user.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). 
+This API documentation page was created with [Slate](https://github.com/slatedocs/slate). 
 
 # User
 
