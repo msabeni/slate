@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Buclist API</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -291,7 +291,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;json&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -301,10 +301,7 @@
     <div class="toc-wrapper">
       <img src="images/logo-1e815a84.png" class="logo" alt="" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="json">json</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -315,19 +312,56 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#user" class="toc-h1 toc-link" data-title="User">User</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#create-a-new-user" class="toc-h2 toc-link" data-title="CREATE A NEW USER">CREATE A NEW USER</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#login-as-a-user" class="toc-h2 toc-link" data-title="LOGIN AS A USER">LOGIN AS A USER</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#user-logout" class="toc-h2 toc-link" data-title="USER LOGOUT">USER LOGOUT</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#bucketlists" class="toc-h1 toc-link" data-title="Bucketlists">Bucketlists</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-new-bucket-list" class="toc-h2 toc-link" data-title="CREATE A NEW BUCKET LIST">CREATE A NEW BUCKET LIST</a>
+                  </li>
+                  <li>
+                    <a href="#list-all-bcket-lists" class="toc-h2 toc-link" data-title="LIST ALL BCKET LISTS">LIST ALL BCKET LISTS</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-single-bucket-list" class="toc-h2 toc-link" data-title="GET A SINGLE BUCKET LIST">GET A SINGLE BUCKET LIST</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-bucket-list" class="toc-h2 toc-link" data-title="UPDATE A BUCKET LIST">UPDATE A BUCKET LIST</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-bucket-list" class="toc-h2 toc-link" data-title="DELETE A BUCKET LIST">DELETE A BUCKET LIST</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#item" class="toc-h1 toc-link" data-title="Item">Item</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-new-item" class="toc-h2 toc-link" data-title="CREATE A NEW ITEM">CREATE A NEW ITEM</a>
+                  </li>
+                  <li>
+                    <a href="#get-all-bucket-list-items" class="toc-h2 toc-link" data-title="GET ALL BUCKET LIST ITEMS">GET ALL BUCKET LIST ITEMS</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-single-item-in-the-bucket-list" class="toc-h2 toc-link" data-title="GET A SINGLE ITEM IN THE BUCKET LIST">GET A SINGLE ITEM IN THE BUCKET LIST</a>
+                  </li>
+                  <li>
+                    <a href="#update-an-item" class="toc-h2 toc-link" data-title="UPDATE AN ITEM">UPDATE AN ITEM</a>
+                  </li>
+                  <li>
+                    <a href="#delete-an-item" class="toc-h2 toc-link" data-title="DELETE AN ITEM">DELETE AN ITEM</a>
                   </li>
               </ul>
           </li>
@@ -336,7 +370,6 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -344,134 +377,124 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Buclist is a simple API, that can be used to store your bucket lists or the things you want to do before you die. It allows consumers to perform CRUD operations on bucketlists. You can use the same API to even manage a ToDo application A bucketlist has many items and belongs to a user.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+<p>This API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. </p>
+<h1 id='user'>User</h1><h2 id='create-a-new-user'>CREATE A NEW USER</h2>
+<p>This endpoint signs up a new user.</p>
+<h3 id='endpoint'>EndPoint</h3>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>POST/signup</p>
 </blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<blockquote>
+<p>REQUEST</p>
+
+<p><code>Headers</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kim"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boy"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kemmymsabeni@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@Passw0rd"</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>RESPONSE : <code>201</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account created successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MTIxNTI5OTJ9.EgLL3tdJetZXWCbDrN4_yQfH867p3VYWhzQ2DfrPUWY"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p><code>POST http://localhost:3000/signup</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>firstname</td>
+<td>User&#39;s firstname.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>lastname</td>
+<td>User&#39;s lastname.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>User&#39;s email.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>A User password.</td>
 </tr>
 </tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
+<h2 id='login-as-a-user'>LOGIN AS A USER</h2>
+<p>This endpoint serves to login existing users. It expects email and password for authentication and returns a token that expires 24 hours from the time it’s created.</p>
+<h3 id='endpoint-2'>EndPoint</h3>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>POST/login</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<blockquote>
+<p>REQUEST</p>
+
+<p><code>Headers</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kemmymsabeni@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@Passw0rd"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MTIxNjA2NTJ9.NqLyzKhbUsTSxtPKH_5tO62uQ2J5Z08SvF81qPA4LlU"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Logged in successfully"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p><code>POST http://localhost:3000/auth/login</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -479,55 +502,416 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>email</td>
+<td>User&#39;s email.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>A User password.</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
+<h2 id='user-logout'>USER LOGOUT</h2>
+<p>This endpoint logs out a user. Once a user is logged out, that token is invalidated.</p>
+<h3 id='endpoint-3'>EndPoint</h3>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>POST/logout</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+<h3 id='http-request-3'>HTTP Request</h3>
+<blockquote>
+<p>REQUEST</p>
+
+<p><code>Headers</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+ </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Logged out successfully"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p><code>GET http://localhost:3000/auth/logout</code></p>
+<h1 id='bucketlists'>Bucketlists</h1><h2 id='create-a-new-bucket-list'>CREATE A NEW BUCKET LIST</h2>
+<p>This endpoint creates a new bucket list.</p>
+<h3 id='endpoint-4'>EndPoint</h3>
+<blockquote>
+<p>POST/bucketlists</p>
+</blockquote>
+<h3 id='http-request-4'>HTTP Request</h3>
+<blockquote>
+<p>REQUEST</p>
+
+<p><code>Headers</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Empire’s eradication"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>RESPONSE : <code>201</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Empire’s eradication"</span><span class="w">
+     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+     </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Darth Vader"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>POST http://localhost:3000/bucketlists</code></p>
+<h2 id='list-all-bcket-lists'>LIST ALL BCKET LISTS</h2>
+<p>This end point lists all the created bucke
+t lists</p>
+<h3 id='endpoint-5'>EndPoint</h3>
+<blockquote>
+<p>GET/bucketlists</p>
+</blockquote>
+<h3 id='http-request-5'>HTTP Request</h3>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Resurrect from The Empire Strikes"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shoot Greedo"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:15:16"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:15:16"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:13:50"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:13:50"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Han Solo"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Find R2-D2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Talk to C3PO"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:15:16"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:15:16"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:13:50"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-13  3:13:50"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Luke Skywalker"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p><code>GET http://localhost:3000/bucketlists</code></p>
+<h2 id='get-a-single-bucket-list'>GET A SINGLE BUCKET LIST</h2>
+<p>This endpoint shows a single bucket list</p>
+<h3 id='endpoint-6'>EndPoint</h3>
+<blockquote>
+<p>GET/bucketlists/&lt; id&gt;</p>
+</blockquote>
+<h3 id='http-request-6'>HTTP Request</h3>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Empire’s eradication"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">" become a Sith Lord"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Darth Vader"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
+<p><code>GET http://localhost:3000/bucketlists/15</code></p>
+<h2 id='update-a-bucket-list'>UPDATE A BUCKET LIST</h2>
+<p>This endpoint updates an existing specified bucket list.</p>
+<h3 id='endpoint-7'>EndPoint</h3>
+<blockquote>
+<p>PUT/bucketlists/&lt; id&gt;</p>
+</blockquote>
+<h3 id='http-request-7'>HTTP Request</h3>
+<blockquote>
+<p>REQUEST</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<p><code>Headers</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jabba the hut"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jabba the hut"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">" become a Sith Lord"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:22:05"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Darth Vader"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>PUT http://localhost:3000/bucketlists/15</code></p>
+<h2 id='delete-a-bucket-list'>DELETE A BUCKET LIST</h2>
+<p>This endpoint deletes an existing specified bucket list.</p>
+<h3 id='endpoint-8'>EndPoint</h3>
+<blockquote>
+<p>DELETE/bucketlists/&lt; id&gt;</p>
+</blockquote>
+<h3 id='http-request-8'>HTTP Request</h3>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bucketlist deleted successfully"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p><code>DELETE http://localhost:3000/bucketlists/15</code></p>
+<h1 id='item'>Item</h1>
+<p>This end point serves all bucket list items belonging to a particular bucket list.</p>
+<h2 id='create-a-new-item'>CREATE A NEW ITEM</h2>
+<p>creates a new item in the bucket list.</p>
+<h3 id='endpoint-9'>EndPoint</h3>
+<blockquote>
+<p>POST/bucketlists/&lt; id&gt;/items</p>
+</blockquote>
+<h3 id='http-request-9'>HTTP REQUEST</h3>
+<blockquote>
+<p>REQUESTS</p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plan to bring my father back"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>RESPONSE : <code>201</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plan to bring my father back"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p><code>POST http://localhost:3000/bucketlists/15/items</code></p>
+<h2 id='get-all-bucket-list-items'>GET ALL BUCKET LIST ITEMS</h2>
+<p>Lists all the created items in a bucket list</p>
+<h3 id='endpoint-10'>EndPoint</h3>
+<blockquote>
+<p>GET/bucketlists/&lt; id&gt;/items</p>
+</blockquote>
+<h3 id='http-request-10'>HTTP REQUEST</h3>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"become a Sith Lord"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serve Sidious"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-14  8:12:05"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-14  8:12:05"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p><code>GET http://localhost:3000/bucketlists/3/items</code></p>
+<h2 id='get-a-single-item-in-the-bucket-list'>GET A SINGLE ITEM IN THE BUCKET LIST</h2>
+<p>Gives you a single item you have specified in a bucket list</p>
+<h3 id='endpoint-11'>EndPoint</h3>
+<blockquote>
+<p>GET/bucketlists/&lt; id&gt;/items/&lt; id&gt;</p>
+</blockquote>
+<h3 id='http-request-11'>HTTP REQUEST</h3>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plan to bring my father back"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET http://localhost:3000/bucketlists/15/items/4</code></p>
+<h2 id='update-an-item'>UPDATE AN ITEM</h2>
+<p>Updates a bucket list item</p>
+<h3 id='endpoint-12'>EndPoint</h3>
+<blockquote>
+<p>PUT/bucketlists/&lt; id&gt;/items/&lt; item_id&gt;</p>
+</blockquote>
+<h3 id='http-request-12'>HTTP REQUEST</h3>
+<blockquote>
+<p>REQUESTS</p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plan to bring my father back"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"date_modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-04  8:12:05"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>PUT http://localhost:3000/bucketlists/15/items/4</code></p>
+<h2 id='delete-an-item'>DELETE AN ITEM</h2>
+<p>Deletes an item in a bucket list</p>
+<h3 id='endpoint-13'>EndPoint</h3>
+<blockquote>
+<p>DELETE/bucketlists/&lt; id&gt;/items/&lt; item_id&gt;</p>
+</blockquote>
+<h3 id='http-request-13'>HTTP REQUEST</h3>
+<blockquote>
+<p>RESPONSE : <code>200</code></p>
+
+<p>Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="s2">"Content-Type: application/json"</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item deleted successfully"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>DELETE http://localhost:3000/bucketlists/15/items/4</code></p>
+<h1 id='errors'>Errors</h1>
+<p>The Buclist API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -544,32 +928,16 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 <td>Unauthorized -- Your API key is wrong.</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified item could not be found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Method Not Allowed -- You tried to access an item with an invalid method.</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
@@ -584,10 +952,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="json">json</a>
           </div>
       </div>
     </div>
