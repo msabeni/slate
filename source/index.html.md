@@ -1,14 +1,10 @@
 ---
-title: API Reference
+title: Buclist API 
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+  - json: json
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -21,221 +17,591 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Buclist is a simple API, that can be used to store your bucket lists or the things you want to do before you die. It allows consumers to perform CRUD operations on bucketlists. You can use the same API to even manage a ToDo application A bucketlist has many items and belongs to a user.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). 
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+# User
 
-# Authentication
+## CREATE A NEW USER
+This endpoint signs up a new user.
 
-> To authorize, use this code:
+### EndPoint
 
-```ruby
-require 'kittn'
+> POST/signup
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+### HTTP Request
+
+> REQUEST
+
+> <code>Headers</code>
+
+```json
+    "Content-Type: application/json"
+
 ```
 
-```python
-import kittn
+>Body
 
-api = kittn.authorize('meowmeowmeow')
+```json
+
+  {
+    "firstname": "kim",
+    "lastname": "boy",
+    "email": "kemmymsabeni@gmail.com",
+    "password": "@Passw0rd"
+  },
+
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+> RESPONSE : <code>201</code>
+
+>Headers
+
+
+```json
+    "Content-Type: application/json"
+
 ```
 
-```javascript
-const kittn = require('kittn');
+>Body
 
-let api = kittn.authorize('meowmeowmeow');
+```json
+
+{
+    "message": "Account created successfully",
+    "auth_token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MTIxNTI5OTJ9.EgLL3tdJetZXWCbDrN4_yQfH867p3VYWhzQ2DfrPUWY"
+}
+
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+`POST http://localhost:3000/signup`
 
-`Authorization: meowmeowmeow`
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+### Query Parameters
 
-# Kittens
+Parameter | Description
+--------- | -----------
+firstname | User's firstname.
+lastname  | User's lastname.
+email     | User's email.
+password  | A User password.
 
-## Get All Kittens
 
-```ruby
-require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+
+
+## LOGIN AS A USER
+
+This endpoint serves to login existing users. It expects email and password for authentication and returns a token that expires 24 hours from the time it’s created.
+
+### EndPoint
+
+> POST/login
+
+### HTTP Request
+
+> REQUEST
+
+> <code>Headers</code>
+
+```json
+    "Content-Type: application/json"
+
 ```
 
-```python
-import kittn
+>Body
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+```json
+
+  {
+    "email": "kemmymsabeni@gmail.com",
+    "password": "@Passw0rd"
+  }
+
 ```
 
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
+> RESPONSE : <code>200</code>
+
+>Headers
+
+
+```json
+    "Content-Type: application/json"
+
 ```
 
-```javascript
-const kittn = require('kittn');
+>Body
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+```json
+
+{
+    "auth_token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MTIxNjA2NTJ9.NqLyzKhbUsTSxtPKH_5tO62uQ2J5Z08SvF81qPA4LlU",
+    "message": "Logged in successfully"
+}
+
 ```
 
-> The above command returns JSON structured like this:
+
+
+`POST http://localhost:3000/auth/login`
+
+
+### Query Parameters
+
+Parameter | Description
+--------- | -----------
+email     | User's email.
+password  | A User password.
+
+
+
+
+
+
+
+## USER LOGOUT
+
+This endpoint logs out a user. Once a user is logged out, that token is invalidated.
+
+### EndPoint
+
+> POST/logout
+
+### HTTP Request
+
+> REQUEST
+
+><code>Headers</code>
+
+```json
+    "Content-Type: application/json"
+```
+
+
+> RESPONSE : <code>200</code>
+
+>Headers
+
+```json
+    "Content-Type: application/json"
+```
+
+>Body
+
+```json
+
+ {
+  "message": "Logged out successfully"
+ }
+
+```
+
+
+`GET http://localhost:3000/auth/logout`
+
+
+
+# Bucketlists
+
+## CREATE A NEW BUCKET LIST
+This endpoint creates a new bucket list.
+
+### EndPoint
+
+> POST/bucketlists
+
+### HTTP Request
+
+> REQUEST
+
+><code>Headers</code>
+
+```json
+    "Content-Type: application/json"
+```
+> Body
+
+```json
+
+  {
+    "name": "Empire’s eradication"
+  }
+
+```
+
+>RESPONSE : <code>201</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+
+>Body
+
+```json
+  {
+     "name": "Empire’s eradication"
+     "id": 15,
+     "items": [],
+     "date_created": "2016-11-04  8:12:05",
+     "date_modified": "2016-11-04  8:12:05",
+     "created_by": "Darth Vader"
+  }
+```
+
+`POST http://localhost:3000/bucketlists`
+
+## LIST ALL BCKET LISTS
+This end point lists all the created bucke
+t lists
+### EndPoint
+
+> GET/bucketlists
+
+### HTTP Request
+
+>RESPONSE : <code>200</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+
+>Body
+
+```json
+  [
+  {
+    "id": 1,
+    "name": "Resurrect from The Empire Strikes",
+    "items": [
+      {
+        "id": 9,
+        "name": "shoot Greedo",
+        "date_created": "2016-11-13  3:15:16",
+        "date_modified": "2016-11-13  3:15:16",
+        "done": false
+      }
+    ],
+    "date_created": "2016-11-13  3:13:50",
+    "date_modified": "2016-11-13  3:13:50",
+    "created_by": "Han Solo"
+  },
+  {
+    "id": 2,
+    "name": "Find R2-D2",
+    "items": [
+      {
+        "id": 9,
+        "name": "Talk to C3PO",
+        "date_created": "2016-11-13  3:15:16",
+        "date_modified": "2016-11-13  3:15:16",
+        "done": false
+      }
+    ],
+    "date_created": "2016-11-13  3:13:50",
+    "date_modified": "2016-11-13  3:13:50",
+    "created_by": "Luke Skywalker"
+   }
+  ]
+```
+
+`GET http://localhost:3000/bucketlists`
+
+## GET A SINGLE BUCKET LIST
+This endpoint shows a single bucket list
+
+### EndPoint
+> GET/bucketlists/< id>
+
+### HTTP Request
+
+> RESPONSE : <code>200</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+
+> Body
+
+```json
+  {
+  "id": 15,
+  "name": "Empire’s eradication",
+  "items": [
+    {
+      "id": 4,
+      "name": " become a Sith Lord",
+      "date_created": "2016-11-04  8:12:05",
+      "date_modified": "2016-11-04  8:12:05",
+      "done": false
+    }
+  ],
+  "created_by": "Darth Vader"
+}
+```
+`GET http://localhost:3000/bucketlists/15`
+
+## UPDATE A BUCKET LIST
+This endpoint updates an existing specified bucket list.
+
+### EndPoint
+> PUT/bucketlists/< id>
+
+### HTTP Request
+
+>REQUEST
+
+><code>Headers</code>
+
+```json
+    "Content-Type: application/json"
+```
+> Body
+
+```json
+
+  {
+    "name": "Jabba the hut"
+  }
+
+```
+
+> RESPONSE : <code>200</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+>Body
+
+```json
+  {
+  "id": 15,
+  "name": "Jabba the hut",
+  "items": [
+    {
+      "id": 4,
+      "name": " become a Sith Lord",
+      "date_created": "2016-11-04  8:12:05",
+      "date_modified": "2016-11-04  8:22:05",
+      "done": false
+    }
+   ],
+   "created_by": "Darth Vader"
+  }
+```
+`PUT http://localhost:3000/bucketlists/15`
+
+
+## DELETE A BUCKET LIST
+This endpoint deletes an existing specified bucket list.
+
+### EndPoint
+> DELETE/bucketlists/< id>
+
+### HTTP Request
+
+> RESPONSE : <code>200</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+>Body
+
+```json
+{
+  "message": "Bucketlist deleted successfully"
+}
+
+```
+
+`DELETE http://localhost:3000/bucketlists/15`
+
+# Item
+This end point serves all bucket list items belonging to a particular bucket list.
+
+## CREATE A NEW ITEM
+creates a new item in the bucket list.
+
+### EndPoint
+> POST/bucketlists/< id>/items
+
+### HTTP REQUEST
+>REQUESTS
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+>Body
+
+```json
+  {
+  "name": "plan to bring my father back"
+  }
+```
+> RESPONSE : <code>201</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+>Body
 
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "id": 4,
+    "name": "plan to bring my father back",
+    "date_created": "2016-11-04  8:12:05",
+    "date_modified": "2016-11-04  8:12:05",
+    "done": false
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+`POST http://localhost:3000/bucketlists/15/items`
 
-### HTTP Request
+## GET ALL BUCKET LIST ITEMS
+Lists all the created items in a bucket list
 
-`GET http://example.com/api/kittens`
+### EndPoint
+> GET/bucketlists/< id>/items
 
-### Query Parameters
+### HTTP REQUEST
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+>RESPONSE : <code>200</code>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+> Headers
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+```json
+    "Content-Type: application/json"
 ```
+>Body
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+```json
+[
+  {
+    "id": 4,
+    "name": "become a Sith Lord",
+    "date_created": "2016-11-04  8:12:05",
+    "date_modified": "2016-11-04  8:12:05",
+    "done": false
+  },
+  {
+    "id": 5,
+    "name": "serve Sidious",
+    "date_created": "2016-11-14  8:12:05",
+    "date_modified": "2016-11-14  8:12:05",
+    "done": false
+  }
+]
 ```
+`GET http://localhost:3000/bucketlists/3/items`
 
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
+
+## GET A SINGLE ITEM IN THE BUCKET LIST
+Gives you a single item you have specified in a bucket list
+
+### EndPoint
+> GET/bucketlists/< id>/items/< id>
+
+### HTTP REQUEST
+> RESPONSE : <code>200</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
 ```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+>Body
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "id": 4,
+  "name": "plan to bring my father back",
+  "date_created": "2016-11-04  8:12:05",
+  "date_modified": "2016-11-04  8:12:05",
+  "done": false
 }
 ```
+`GET http://localhost:3000/bucketlists/15/items/4`
 
-This endpoint retrieves a specific kitten.
+## UPDATE AN ITEM
+Updates a bucket list item
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+### EndPoint
+> PUT/bucketlists/< id>/items/< item_id>
 
-### HTTP Request
+### HTTP REQUEST
+>REQUESTS
 
-`GET http://example.com/kittens/<ID>`
+> Headers
 
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
+```json
+    "Content-Type: application/json"
 ```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+>Body
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "done": true
 }
 ```
+> RESPONSE : <code>200</code>
 
-This endpoint deletes a specific kitten.
+> Headers
 
-### HTTP Request
+```json
+    "Content-Type: application/json"
+```
+> Body
 
-`DELETE http://example.com/kittens/<ID>`
+```json
+{
+  "id": 4,
+  "name": "plan to bring my father back",
+  "date_created": "2016-11-04  8:12:05",
+  "date_modified": "2016-11-04  8:12:05",
+  "done": true
+}
+```
+`PUT http://localhost:3000/bucketlists/15/items/4`
 
-### URL Parameters
+## DELETE AN ITEM
+Deletes an item in a bucket list
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+### EndPoint
+> DELETE/bucketlists/< id>/items/< item_id>
+
+### HTTP REQUEST
+> RESPONSE : <code>200</code>
+
+> Headers
+
+```json
+    "Content-Type: application/json"
+```
+>Body
+
+```json
+{
+  "message": "Item deleted successfully"
+}
+```
+`DELETE http://localhost:3000/bucketlists/15/items/4`
+
 
