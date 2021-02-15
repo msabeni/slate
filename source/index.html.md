@@ -396,7 +396,7 @@ GET/tracking/:id/lastevent
 
 ## Image Download
 
-This endpoint shows a single bucket list
+This endpoint downloads an image.
 
 ### EndPoint
 
