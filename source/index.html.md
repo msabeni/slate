@@ -1,5 +1,5 @@
 ---
-title: Buclist API 
+title: ALMEXAPIQA
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - json: json
@@ -17,18 +17,19 @@ code_clipboard: true
 
 # Introduction
 
-Buclist is a simple API, that can be used to store your bucket lists or the things you want to do before you die. It allows consumers to perform CRUD operations on bucketlists. You can use the same API to even manage a ToDo application A bucketlist has many items and belongs to a user.
+GGGH kkjnlojkjn nkjljkl lhjikjnklnk jk ijj ikmjk lijlk jilh o ijiljijl io jl jjjjjjjjjjjjjjjjj.
 
-This API documentation page was created with [Slate](https://github.com/slatedocs/slate). 
+This API documentation page was created with [Slate](https://github.com/slatedocs/slate).
 
-# User
+# Authentication
 
-## CREATE A NEW USER
-This endpoint signs up a new user.
+## TOKEN
+
+This endpoint deals with a user.
 
 ### EndPoint
 
-> POST/signup
+POST/auth/token
 
 ### HTTP Request
 
@@ -37,287 +38,367 @@ This endpoint signs up a new user.
 > <code>Headers</code>
 
 ```json
-    "Content-Type: application/json"
-
+"Content-Type: application/json"
 ```
 
->Body
-
-```json
-
-  {
-    "firstname": "kim",
-    "lastname": "boy",
-    "email": "kemmymsabeni@gmail.com",
-    "password": "@Passw0rd"
-  },
-
-```
-
-> RESPONSE : <code>201</code>
-
->Headers
-
-
-```json
-    "Content-Type: application/json"
-
-```
-
->Body
-
-```json
-
-{
-    "message": "Account created successfully",
-    "auth_token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MTIxNTI5OTJ9.EgLL3tdJetZXWCbDrN4_yQfH867p3VYWhzQ2DfrPUWY"
-}
-
-```
-
-
-
-`POST http://localhost:3000/signup`
-
-
-### Query Parameters
-
-Parameter | Description
---------- | -----------
-firstname | User's firstname.
-lastname  | User's lastname.
-email     | User's email.
-password  | A User password.
-
-
-
-
-
-## LOGIN AS A USER
-
-This endpoint serves to login existing users. It expects email and password for authentication and returns a token that expires 24 hours from the time it’s created.
-
-### EndPoint
-
-> POST/login
-
-### HTTP Request
-
-> REQUEST
-
-> <code>Headers</code>
-
-```json
-    "Content-Type: application/json"
-
-```
-
->Body
-
-```json
-
-  {
-    "email": "kemmymsabeni@gmail.com",
-    "password": "@Passw0rd"
-  }
-
-```
-
-> RESPONSE : <code>200</code>
-
->Headers
-
-
-```json
-    "Content-Type: application/json"
-
-```
-
->Body
-
-```json
-
-{
-    "auth_token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MTIxNjA2NTJ9.NqLyzKhbUsTSxtPKH_5tO62uQ2J5Z08SvF81qPA4LlU",
-    "message": "Logged in successfully"
-}
-
-```
-
-
-
-`POST http://localhost:3000/auth/login`
-
-
-### Query Parameters
-
-Parameter | Description
---------- | -----------
-email     | User's email.
-password  | A User password.
-
-
-
-
-
-
-
-## USER LOGOUT
-
-This endpoint logs out a user. Once a user is logged out, that token is invalidated.
-
-### EndPoint
-
-> POST/logout
-
-### HTTP Request
-
-> REQUEST
-
-><code>Headers</code>
-
-```json
-    "Content-Type: application/json"
-```
-
-
-> RESPONSE : <code>200</code>
-
->Headers
-
-```json
-    "Content-Type: application/json"
-```
-
->Body
-
-```json
-
- {
-  "message": "Logged out successfully"
- }
-
-```
-
-
-`GET http://localhost:3000/auth/logout`
-
-
-
-# Bucketlists
-
-## CREATE A NEW BUCKET LIST
-This endpoint creates a new bucket list.
-
-### EndPoint
-
-> POST/bucketlists
-
-### HTTP Request
-
-> REQUEST
-
-><code>Headers</code>
-
-```json
-    "Content-Type: application/json"
-```
 > Body
 
 ```json
-
-  {
-    "name": "Empire’s eradication"
-  }
-
+{
+  "userName": "",
+  "password": "",
+  "numberAccount": ""
+}
 ```
 
->RESPONSE : <code>201</code>
+> RESPONSE : <code>200</code>
 
 > Headers
 
 ```json
-    "Content-Type: application/json"
+"Content-Type: application/json"
 ```
 
->Body
+> Body
 
 ```json
-  {
-     "name": "Empire’s eradication"
-     "id": 15,
-     "items": [],
-     "date_created": "2016-11-04  8:12:05",
-     "date_modified": "2016-11-04  8:12:05",
-     "created_by": "Darth Vader"
-  }
+{
+  "code": 200,
+  "message": "OK",
+  "response": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJqdGkiOiIwYTZlZGM0Ni1kODI1LTQ2YWItOGQ1ZS05ZjE3ZjY5YjRlMGIiLCJ1c2VyTmFtZSI6IiIsIm51bWJlckFjY291bnQiOiIiLCJ1c2VySWQiOjExNzQwLCJjbGllbnRJZCI6NTUxMDU4LCJjdXJyZW5jeUlkIjowLCJkZW5zaXR5IjowLjAsImdyb3VwUHJvamVjdElkIjowLCJwcm9qZWN0SWQiOjAsInR5cGVTZXJ2aWNlIjoxLCJjb21wYW55SWQiOjUsInBhcmlkYWRJZCI6MC4wLCJpdmFJZCI6MSwicm9sZSI6IkFsbWV4IiwibmJmIjoxNjEzMzgzODQwLCJleHAiOjE2MTM5ODg2NDAsImlhdCI6MTYxMzM4Mzg0MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIn0.DtUX_YD892zImsjpOjQBzHSGeDiMGJr4XcfdnMafp6c",
+    "refreshToken": "2ep2/QZ+GirsSpVKUmeuN54qN/tQr+NctvJ0BUmofsNm7M/iAxoW8/gjXxPC5OJ4G14oj6ZA5w5Cq5Q2DdATVw=="
+  },
+  "success": true
+}
 ```
 
-`POST http://localhost:3000/bucketlists`
+`POST https://almexapiqa.azure-api.net/auth/token?subscription-key=e725bd3f101c46c8a4e8ce132d3f34c4`
 
-## LIST ALL BCKET LISTS
-This end point lists all the created bucke
-t lists
+### Query Parameters
+
+| Parameter        | Description                      |
+| ---------------- | -------------------------------- |
+| subscription-key | e725bd3f101c46c8a4e8ce132d3f34c4 |
+
+## REFRESH TOKEN
+
+This endpoint .................
+
 ### EndPoint
 
-> GET/bucketlists
+POST/auth/refresh-token
 
 ### HTTP Request
 
->RESPONSE : <code>200</code>
+> REQUEST
+
+> <code>Headers</code>
+
+```json
+"Content-Type: application/json"
+```
+
+> Body
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJqdGkiOiIwYTZlZGM0Ni1kODI1LTQ2YWItOGQ1ZS05ZjE3ZjY5YjRlMGIiLCJ1c2VyTmFtZSI6IiIsIm51bWJlckFjY291bnQiOiIiLCJ1c2VySWQiOjExNzQwLCJjbGllbnRJZCI6NTUxMDU4LCJjdXJyZW5jeUlkIjowLCJkZW5zaXR5IjowLjAsImdyb3VwUHJvamVjdElkIjowLCJwcm9qZWN0SWQiOjAsInR5cGVTZXJ2aWNlIjoxLCJjb21wYW55SWQiOjUsInBhcmlkYWRJZCI6MC4wLCJpdmFJZCI6MSwicm9sZSI6IkFsbWV4IiwibmJmIjoxNjEzMzgzODQwLCJleHAiOjE2MTM5ODg2NDAsImlhdCI6MTYxMzM4Mzg0MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIn0.DtUX_YD892zImsjpOjQBzHSGeDiMGJr4XcfdnMafp6c"
+}
+```
+
+> RESPONSE : <code>200</code>
 
 > Headers
 
 ```json
-    "Content-Type: application/json"
+"Content-Type: application/json"
 ```
 
->Body
+> Body
 
 ```json
-  [
-  {
-    "id": 1,
-    "name": "Resurrect from The Empire Strikes",
-    "items": [
-      {
-        "id": 9,
-        "name": "shoot Greedo",
-        "date_created": "2016-11-13  3:15:16",
-        "date_modified": "2016-11-13  3:15:16",
-        "done": false
-      }
-    ],
-    "date_created": "2016-11-13  3:13:50",
-    "date_modified": "2016-11-13  3:13:50",
-    "created_by": "Han Solo"
-  },
-  {
-    "id": 2,
-    "name": "Find R2-D2",
-    "items": [
-      {
-        "id": 9,
-        "name": "Talk to C3PO",
-        "date_created": "2016-11-13  3:15:16",
-        "date_modified": "2016-11-13  3:15:16",
-        "done": false
-      }
-    ],
-    "date_created": "2016-11-13  3:13:50",
-    "date_modified": "2016-11-13  3:13:50",
-    "created_by": "Luke Skywalker"
-   }
-  ]
+{
+  "success": false,
+  "code": 200,
+  "message": "Nombre de usuario o contraseña incorrectos, inténtalo de nuevo."
+}
 ```
 
-`GET http://localhost:3000/bucketlists`
+`POST https://almexapiqa.azure-api.net/auth/refresh-token?subscription-key=820987daaf1d4b37bca95b6e7a0cd8da`
 
-## GET A SINGLE BUCKET LIST
+### Query Parameters
+
+| Parameter        | Description                      |
+| ---------------- | -------------------------------- |
+| subscription-key | 820987daaf1d4b37bca95b6e7a0cd8da |
+
+# Quote
+
+## RATE
+
+This endpoint ..............
+
+### EndPoint
+
+POST/quote/rate
+
+### HTTP Request
+
+> REQUEST
+
+> <code>Headers</code>
+
+```json
+"Content-Type: application/json"
+```
+
+> Body
+
+```json
+{
+  "origin": {
+    "postalCode": "52227"
+  },
+  "destination": {
+    "postalCode": "75110"
+  },
+  "packages": [
+    {
+      "content": "camisetas rosas",
+      "amount": 1,
+      "type": "box",
+      "dimensions": {
+        "length": 1,
+        "width": 1,
+        "height": 1
+      },
+      "weight": 1,
+      "insurance": 1,
+      "declaredValue": 0,
+      "weightUnit": "KGS",
+      "lengthUnit": "MTS"
+    }
+  ]
+}
+```
+
+> RESPONSE : <code>401</code>
+
+> Headers
+
+```json
+"Content-Type: application/json"
+```
+
+> Body
+
+```json
+{
+  "type": "https://httpstatuses.com/401",
+  "title": "Unauthorized",
+  "status": 401,
+  "traceId": "|abb06879-486bc05a368175f2."
+}
+```
+
+`POST https://almexapiqa.azure-api.net/quote/rate?subscription-key=820987daaf1d4b37bca95b6e7a0cd8da`
+
+### Query Parameters
+
+| Parameter        | Description                      |
+| ---------------- | -------------------------------- |
+| subscription-key | 820987daaf1d4b37bca95b6e7a0cd8da |
+
+# Pickup Request
+
+## GENERATE
+
+This endpoint generates a pickup request.
+
+### EndPoint
+
+POST/pickuprequest/generate
+
+### HTTP Request
+
+> REQUEST
+
+> <code>Headers</code>
+
+```json
+"Content-Type: application/json"
+```
+
+> Body
+
+```json
+{
+  "shipper": {
+    "name": "Tepeji Depot MX",
+    "id": "Costco_224",
+    "address_street": "Calle Norte 3 No. 3",
+    "address_neighborhood": "Parque Industrial",
+    "city": "Tepeji del Rio de Ocampo",
+    "state": "HG",
+    "country": "MX",
+    "zipcode": "42884",
+    "phone_number": "123456",
+    "email": "123@123.com"
+  },
+  "consignee": {
+    "name": "Centiro",
+    "id": null,
+    "address_street": "Benito Juárez",
+    "address_neighborhood": "Centro",
+    "city": "Asuncion Cuyotepeji City",
+    "state": "OA",
+    "country": "MX",
+    "zipcode": "64500",
+    "phone_number": "073001100",
+    "email": "Centiro@costco.com"
+  },
+  "services": {
+    "observations": "",
+    "service_type": 3,
+    "shipping_type": 1
+  },
+  "accessorials": {
+    "insurance": {
+      "types_insurance": 4,
+      "declared_amount": 0.0
+    },
+    "pickup": {
+      "service_needed": true,
+      "date": "2021-01-29T00:00:00",
+      "appointment": {
+        "start_time": null,
+        "end_time": null
+      }
+    },
+    "delivery": {
+      "service_needed": true,
+      "only_working_days": 1,
+      "appointment": {
+        "date": null,
+        "start_time": null,
+        "end_time": null
+      }
+    }
+  },
+  "packages": {
+    "weight_unit": "KGS",
+    "length_unit": "MTS",
+    "details": [
+      {
+        "package": "BOX",
+        "quantity": 1,
+        "dimensions": {
+          "length": 1.42,
+          "width": 0.94,
+          "height": 0.94
+        },
+        "weight": 172.0
+      }
+    ]
+  },
+  "references": [
+    {
+      "almex_reference_id": 0,
+      "customer_reference": "MX11Ord2222165"
+    }
+  ]
+}
+```
+
+> RESPONSE : <code>401</code>
+
+> Headers
+
+```json
+"Content-Type: application/json"
+```
+
+> Body
+
+```json
+{
+  "type": "https://httpstatuses.com/401",
+  "title": "Unauthorized",
+  "status": 401,
+  "traceId": "|abb06885-486bc05a368175f2."
+}
+```
+
+`POST https://almexapiqa.azure-api.net/pickuprequest/generate?subscription-key=820987daaf1d4b37bca95b6e7a0cd8da`
+
+### Query Parameters
+
+| Parameter        | Description                      |
+| ---------------- | -------------------------------- |
+| subscription-key | 820987daaf1d4b37bca95b6e7a0cd8da |
+
+# Tracking
+
+## LAST EVENT
+
+This endpoint tracks the last event..
+
+### EndPoint
+
+GET/tracking/:id/lastevent
+
+### HTTP Request
+
+> RESPONSE : <code>200</code>
+
+> Headers
+
+```json
+"Content-Type: application/json"
+```
+
+> Body
+
+```json
+{
+  "response": {
+    "idEvent": 88983549,
+    "trackingIdEvent": 4,
+    "descriptionEvent": "Mercancía Entregada",
+    "description2Event": "Goods delivered",
+    "dateLastEvent": "2020-06-10T16:02:38.363",
+    "hourLastEvent": "2020-06-10T16:02:38.363",
+    "referenceEvent": "0 MONTERREY (SUC. GUERRERO)",
+    "officeName": "MONTERREY (SUC. GUERRERO)",
+    "tractor": {
+      "operatorName": "",
+      "tractorNumber": ""
+    }
+  },
+  "success": true,
+  "code": 200,
+  "message": ""
+}
+```
+
+`GET https://almexapiqa.azure-api.net/tracking/07053846188/lastevent?subscription-key=820987daaf1d4b37bca95b6e7a0cd8da"`
+
+### Query Parameters
+
+| Parameter        | Description                      |
+| ---------------- | -------------------------------- |
+| subscription-key | 820987daaf1d4b37bca95b6e7a0cd8da |
+
+# Imaging
+
+## IMAGE DOWNLOAD
+
 This endpoint shows a single bucket list
 
 ### EndPoint
-> GET/bucketlists/< id>
+
+GET/imaging/:id/imaging/es-mx
 
 ### HTTP Request
 
@@ -326,282 +407,29 @@ This endpoint shows a single bucket list
 > Headers
 
 ```json
-    "Content-Type: application/json"
+"Content-Type: application/json"
 ```
 
 > Body
-
-```json
-  {
-  "id": 15,
-  "name": "Empire’s eradication",
-  "items": [
-    {
-      "id": 4,
-      "name": " become a Sith Lord",
-      "date_created": "2016-11-04  8:12:05",
-      "date_modified": "2016-11-04  8:12:05",
-      "done": false
-    }
-  ],
-  "created_by": "Darth Vader"
-}
-```
-`GET http://localhost:3000/bucketlists/15`
-
-## UPDATE A BUCKET LIST
-This endpoint updates an existing specified bucket list.
-
-### EndPoint
-> PUT/bucketlists/< id>
-
-### HTTP Request
-
->REQUEST
-
-><code>Headers</code>
-
-```json
-    "Content-Type: application/json"
-```
-> Body
-
-```json
-
-  {
-    "name": "Jabba the hut"
-  }
-
-```
-
-> RESPONSE : <code>200</code>
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
-
-```json
-  {
-  "id": 15,
-  "name": "Jabba the hut",
-  "items": [
-    {
-      "id": 4,
-      "name": " become a Sith Lord",
-      "date_created": "2016-11-04  8:12:05",
-      "date_modified": "2016-11-04  8:22:05",
-      "done": false
-    }
-   ],
-   "created_by": "Darth Vader"
-  }
-```
-`PUT http://localhost:3000/bucketlists/15`
-
-
-## DELETE A BUCKET LIST
-This endpoint deletes an existing specified bucket list.
-
-### EndPoint
-> DELETE/bucketlists/< id>
-
-### HTTP Request
-
-> RESPONSE : <code>200</code>
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
 
 ```json
 {
-  "message": "Bucketlist deleted successfully"
-}
-
-```
-
-`DELETE http://localhost:3000/bucketlists/15`
-
-# Item
-This end point serves all bucket list items belonging to a particular bucket list.
-
-## CREATE A NEW ITEM
-creates a new item in the bucket list.
-
-### EndPoint
-> POST/bucketlists/< id>/items
-
-### HTTP REQUEST
->REQUESTS
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
-
-```json
-  {
-  "name": "plan to bring my father back"
-  }
-```
-> RESPONSE : <code>201</code>
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
-
-```json
-[
-  {
-    "id": 4,
-    "name": "plan to bring my father back",
-    "date_created": "2016-11-04  8:12:05",
-    "date_modified": "2016-11-04  8:12:05",
-    "done": false
-  }
-]
-```
-
-`POST http://localhost:3000/bucketlists/15/items`
-
-## GET ALL BUCKET LIST ITEMS
-Lists all the created items in a bucket list
-
-### EndPoint
-> GET/bucketlists/< id>/items
-
-### HTTP REQUEST
-
->RESPONSE : <code>200</code>
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
-
-```json
-[
-  {
-    "id": 4,
-    "name": "become a Sith Lord",
-    "date_created": "2016-11-04  8:12:05",
-    "date_modified": "2016-11-04  8:12:05",
-    "done": false
+  "response": {
+    "url": "http://imagenguias.almex.com.mx/imgCte.asp?Q5fr2ytYSTP55xrRvdrkps4wtQOP0dNB"
   },
-  {
-    "id": 5,
-    "name": "serve Sidious",
-    "date_created": "2016-11-14  8:12:05",
-    "date_modified": "2016-11-14  8:12:05",
-    "done": false
-  }
-]
-```
-`GET http://localhost:3000/bucketlists/3/items`
-
-
-## GET A SINGLE ITEM IN THE BUCKET LIST
-Gives you a single item you have specified in a bucket list
-
-### EndPoint
-> GET/bucketlists/< id>/items/< id>
-
-### HTTP REQUEST
-> RESPONSE : <code>200</code>
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
-
-```json
-{
-  "id": 4,
-  "name": "plan to bring my father back",
-  "date_created": "2016-11-04  8:12:05",
-  "date_modified": "2016-11-04  8:12:05",
-  "done": false
+  "success": true,
+  "code": 200,
+  "message": ""
 }
 ```
-`GET http://localhost:3000/bucketlists/15/items/4`
 
-## UPDATE AN ITEM
-Updates a bucket list item
+`GET https://almexapiqa.azure-api.net/imaging/07070769168/imaging/es-mx?documentType=DR&documentFormat=URL&subscription-key=85070f2ccf9345c58bcd5d3ad78446bf`
 
-### EndPoint
-> PUT/bucketlists/< id>/items/< item_id>
+### Query Parameters
 
-### HTTP REQUEST
->REQUESTS
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
-
-```json
-{
-  "done": true
-}
-```
-> RESPONSE : <code>200</code>
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
-> Body
-
-```json
-{
-  "id": 4,
-  "name": "plan to bring my father back",
-  "date_created": "2016-11-04  8:12:05",
-  "date_modified": "2016-11-04  8:12:05",
-  "done": true
-}
-```
-`PUT http://localhost:3000/bucketlists/15/items/4`
-
-## DELETE AN ITEM
-Deletes an item in a bucket list
-
-### EndPoint
-> DELETE/bucketlists/< id>/items/< item_id>
-
-### HTTP REQUEST
-> RESPONSE : <code>200</code>
-
-> Headers
-
-```json
-    "Content-Type: application/json"
-```
->Body
-
-```json
-{
-  "message": "Item deleted successfully"
-}
-```
-`DELETE http://localhost:3000/bucketlists/15/items/4`
-
-
+| Parameter        | Description                      |
+| ---------------- | -------------------------------- |
+| subscription-key | 820987daaf1d4b37bca95b6e7a0cd8da |
+| documentType     | DR                               |
+| documentFormat   | URL                              |
+| subscription-key | 85070f2ccf9345c58bcd5d3ad78446bf |
