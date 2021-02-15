@@ -25,7 +25,7 @@ This API documentation page was created with [Slate](https://github.com/slatedoc
 
 # Authentication
 
-## TOKEN
+## Token
 
 This endpoint deals with a user.
 
@@ -83,9 +83,9 @@ POST/auth/token
 | ---------------- | -------------------------------- |
 | subscription-key | e725bd3f101c46c8a4e8ce132d3f34c4 |
 
-## REFRESH TOKEN
+## Refresh Token
 
-This endpoint .................
+This endpoint refreshes the token.
 
 ### EndPoint
 
@@ -137,7 +137,7 @@ POST/auth/refresh-token
 
 # Quote
 
-## RATE
+## Rate
 
 This endpoint ..............
 
@@ -214,7 +214,7 @@ POST/quote/rate
 
 # Pickup Request
 
-## GENERATE
+## Generate
 
 This endpoint generates a pickup request.
 
@@ -342,7 +342,7 @@ POST/pickuprequest/generate
 
 # Tracking
 
-## LAST EVENT
+## Last Event
 
 This endpoint tracks the last event..
 
@@ -394,7 +394,7 @@ GET/tracking/:id/lastevent
 
 # Imaging
 
-## IMAGE DOWNLOAD
+## Image Download
 
 This endpoint shows a single bucket list
 
