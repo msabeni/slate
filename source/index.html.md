@@ -19,7 +19,7 @@ code_clipboard: true
 
 All endpoints except auth/token and auth/refresh-token require a token for Authorization, failure to which the API will return an error.
 
-HOST: https://almexapiqa.azure-api.net
+HOST: [https://almexapiqa.azure-api.net](https://almexapiqa.azure-api.net).
 
 This API documentation page was created with [Slate](https://github.com/slatedocs/slate).
 
